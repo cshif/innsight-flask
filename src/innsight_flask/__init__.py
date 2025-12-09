@@ -30,6 +30,9 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
+    from .health import health
+    app.register_blueprint(health.bp)
+
     app.teardown_appcontext(db.close_db)
 
     @app.route('/test-db')

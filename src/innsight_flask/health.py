@@ -1,0 +1,15 @@
+from datetime import datetime, timezone
+from importlib.metadata import version
+
+from flask import Blueprint
+
+bp = Blueprint('health', __name__)
+
+
+@bp.route('/health')
+def health():
+    return {
+        'status': 'healthy',
+        'version': version('innsight-flask'),
+        'timestamp': datetime.now(timezone.utc).isoformat(),
+    }

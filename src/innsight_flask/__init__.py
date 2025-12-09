@@ -33,6 +33,9 @@ def create_app(test_config=None):
     from .health import health
     app.register_blueprint(health.bp)
 
+    from .api import recommend
+    app.register_blueprint(recommend.bp)
+
     app.teardown_appcontext(db.close_db)
 
     @app.route('/test-db')

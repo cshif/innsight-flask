@@ -1,0 +1,20 @@
+[project]
+name = "innsight-flask"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "cshif",email = "5175166+cshif@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "flask (>=3.1.2,<4.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "innsight_flask", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

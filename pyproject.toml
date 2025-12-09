@@ -22,7 +22,8 @@ dependencies = [
     "matplotlib (>=3.10.7,<4.0.0)",
     "jieba (>=0.42.1,<0.43.0)",
     "structlog (>=25.5.0,<26.0.0)",
-    "pytest (>=9.0.2,<10.0.0)"
+    "pytest (>=9.0.2,<10.0.0)",
+    "flask-pydantic (>=0.13.2,<0.14.0)"
 ]
 
 [tool.poetry]

@@ -30,7 +30,7 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
-    from .health import health
+    from . import health
     app.register_blueprint(health.bp)
 
     from .api import recommend

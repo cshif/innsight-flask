@@ -11,6 +11,7 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE_URL=os.environ.get('DATABASE_URL', 'postgresql://localhost/innsight'),
     )
+    app.json.ensure_ascii = False
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

@@ -1,13 +1,12 @@
-from flask import Blueprint, request, make_response
+from flask import Blueprint
+from flask_pydantic import validate
 
+from innsight_flask.models import RecommendRequest
 
 bp = Blueprint('recommend', __name__, url_prefix='/api')
 
 @bp.post('/recommend')
-def recommend():
-    data = request.get_json()
-    query = data.get('query')
-    res = make_response({
-        'query': query
-    }, 200)
-    return res
+@validate()
+def recommend(body: RecommendRequest):
+    query = body.query
+    return query

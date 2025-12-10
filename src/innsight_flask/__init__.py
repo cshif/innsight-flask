@@ -13,6 +13,9 @@ def create_app(test_config=None):
     )
     app.json.ensure_ascii = False
 
+    from .pipeline import Recommender
+    app.recommender = Recommender()
+
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)

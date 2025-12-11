@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
 from . import db
 
 
@@ -12,6 +13,15 @@ def create_app(test_config=None):
         DATABASE_URL=os.environ.get('DATABASE_URL', 'postgresql://localhost/innsight'),
     )
     app.json.ensure_ascii = False
+
+    cors_ext = CORS(
+        app,
+        supports_credentials=False,
+        origins="*",
+        methods="*",
+        allow_headers="*"
+    )
+    cors_ext.init_app(app)
 
     from .pipeline import Recommender
     app.recommender = Recommender()

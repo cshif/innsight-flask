@@ -2,15 +2,21 @@ import os
 
 from flask import Flask
 from flask_cors import CORS
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from . import db
+from .config import AppConfig
 
 
 def create_app(test_config=None):
+    app_config = AppConfig.from_env()
+
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE_URL=os.environ.get('DATABASE_URL', 'postgresql://localhost/innsight'),
+        RATELIMIT_DEFAULT='100/minute' if app_config.is_development else ["60/minute"],
     )
     app.json.ensure_ascii = False
 
@@ -32,6 +38,12 @@ def create_app(test_config=None):
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
+
+    limiter = Limiter(
+        get_remote_address,
+        default_limits=[app.config['RATELIMIT_DEFAULT']],
+    )
+    limiter.init_app(app)
 
     # ensure the instance folder exists
     try:

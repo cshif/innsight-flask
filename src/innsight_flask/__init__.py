@@ -6,6 +6,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from . import db
 from .config import AppConfig
+from .security import SecurityHeaders
 
 
 def create_app(test_config=None):
@@ -13,6 +14,10 @@ def create_app(test_config=None):
 
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+
+    security_headers = SecurityHeaders()
+    security_headers.init_app(app)
+
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE_URL=os.environ.get('DATABASE_URL', 'postgresql://localhost/innsight'),

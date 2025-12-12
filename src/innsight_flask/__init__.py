@@ -7,6 +7,7 @@ from flask_limiter.util import get_remote_address
 from . import db
 from .config import AppConfig
 from .security import SecurityHeaders
+from .tracing import RequestTracing
 
 
 def create_app(test_config=None):
@@ -17,6 +18,8 @@ def create_app(test_config=None):
 
     security_headers = SecurityHeaders()
     security_headers.init_app(app)
+
+    RequestTracing(app)
 
     app.config.from_mapping(
         SECRET_KEY='dev',
